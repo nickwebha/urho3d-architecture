@@ -13,8 +13,6 @@ class Balls : public Urho3D::Component {
 
 		Urho3D::SharedPtr< Urho3D::Node > balls_[ BALLS_COUNT ];
 
-		void HandleObjectCollisionStart( Urho3D::StringHash eventType, Urho3D::VariantMap& eventData );
-
 	public:
 		explicit Balls( Urho3D::Context* context ) : Urho3D::Component( context ) {};
 

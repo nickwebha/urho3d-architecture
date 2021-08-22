@@ -1,26 +1,10 @@
 #include <balls.hpp>
 
-void Balls::HandleObjectCollisionStart( Urho3D::StringHash eventType, Urho3D::VariantMap& eventData ) {
-	auto* rigidBody1 = static_cast< Urho3D::RigidBody* >( eventData[ Urho3D::NodeCollisionStart::P_BODY ].GetPtr() );
-	auto* node1 = rigidBody1->GetNode();
-	const auto name1 = node1->GetName();
-
-	auto* rigidBody2 = static_cast< Urho3D::RigidBody* >( eventData[ Urho3D::NodeCollisionStart::P_OTHERBODY ].GetPtr() );
-	auto* node2 = rigidBody2->GetNode();
-	const auto name2 = node2->GetName();
-
-	if ( name2 == "Player" ) {
-		UnsubscribeFromEvent( node1, Urho3D::E_NODECOLLISIONSTART );
-
-		node1->Remove();
-	}
-};
-
 void Balls::Start( void ) {
-	for ( short int i = 0 ; i < BALLS_COUNT ; i++ ) {
-		auto* cache = this->GetSubsystem< Urho3D::ResourceCache >();
-		auto* level = this->GetSubsystem< Level >();
+	auto* cache = this->GetSubsystem< Urho3D::ResourceCache >();
+	auto* level = this->GetSubsystem< Level >();
 
+	for ( short int i = 0 ; i < BALLS_COUNT ; i++ ) {
 		this->balls_[ i ] = level->getScene()->CreateChild( "Ball" );
 		const auto& ball = this->balls_[ i ];
 
@@ -36,12 +20,10 @@ void Balls::Start( void ) {
 
 		auto* rigidBody = ball->CreateComponent< Urho3D::RigidBody >();
 		rigidBody->SetMass( 1.0f );
-		rigidBody->SetFriction( 0.5f );
+		rigidBody->SetFriction( 0.25f );
 		rigidBody->SetCollisionLayerAndMask( LayerFlagsBalls, LayerFlagsTerrain | LayerFlagsBalls );
 
 		auto* collisionShape = ball->CreateComponent< Urho3D::CollisionShape >();
 		collisionShape->SetSphere( 1 );
-
-		SubscribeToEvent( ball, Urho3D::E_NODECOLLISIONSTART, URHO3D_HANDLER( Balls, HandleObjectCollisionStart ) );
 	}
 };

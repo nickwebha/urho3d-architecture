@@ -7,6 +7,8 @@ class Loading : public Base {
 	private:
 		Urho3D::SharedPtr< Urho3D::Sprite > sprite_;
 
+		void preload( void );
+
 	public:
 		using Base::Base;
 

@@ -1,5 +1,9 @@
 #include <loading.hpp>
 
+void Loading::preload( void ) {
+	// Pre-load everything here.
+};
+
 void Loading::Start( void ) {
 	auto* cache = this->GetSubsystem< Urho3D::ResourceCache >();
 
@@ -16,7 +20,7 @@ void Loading::Start( void ) {
 	this->sprite_->SetSize( textureWidth, textureHeight );
 	this->sprite_->SetPosition( graphics->GetWidth() / 2 - textureWidth / 2, graphics->GetHeight() / 2 - textureHeight / 2 );
 
-	// TODO Pre-load everything here.
+	this->preload();
 };
 
 void Loading::Stop( void ) {

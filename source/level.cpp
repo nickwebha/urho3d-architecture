@@ -19,28 +19,28 @@ void Level::Start( void ) {
 	auto* cache = this->GetSubsystem< Urho3D::ResourceCache >();
 
 	auto* physicsWorld = this->scene_->CreateComponent< Urho3D::PhysicsWorld >();
-	physicsWorld->SetGravity( Urho3D::Vector3( 0, WORLD_GRAVITY, 0 ) );
+	physicsWorld->SetGravity( Urho3D::Vector3( 0, -LEVEL_GRAVITY, 0 ) );
 
 	this->cameraNode_ = new Urho3D::Node( this->GetContext() );
 	this->cameraNode_->SetTransform( Urho3D::Vector3( 0.0f, 250.0f, 0.0f ), Urho3D::Quaternion( 90.0f, 0.0f, 0.0f ) );
 	auto* camera = this->cameraNode_->CreateComponent< Urho3D::Camera >();
-	camera->SetFarClip( 500.0f );
+	camera->SetFarClip( 1000.0f );
 
 	auto* zoneNode = this->scene_->CreateChild( "Zone" );
 	auto* zone = zoneNode->CreateComponent< Urho3D::Zone >();
-	zone->SetBoundingBox( Urho3D::BoundingBox( Urho3D::Sphere( Urho3D::Vector3::ZERO, 200 ) ) );
+	zone->SetBoundingBox( Urho3D::BoundingBox( -1000.0f, 1000.0 ) );
 	zone->SetAmbientColor( Urho3D::Color( 0.15f, 0.15f, 0.15f ) );
-	zone->SetFogColor( Urho3D::Color( 0.0f, 0.0f, 0.0f ) );
-	zone->SetFogStart( 400.0f );
-	zone->SetFogEnd( 500.0f );
+	zone->SetFogColor( Urho3D::Color::WHITE );
+	zone->SetFogStart( 900.0f );
+	zone->SetFogEnd( 1000.0f );
 
 	auto* lightNode = this->scene_->CreateChild( "Light" );
-	lightNode->SetDirection( Urho3D::Vector3( 0.8f, -1.0f, 0.8f ) );
+	lightNode->SetDirection( Urho3D::Vector3( 0.75f, -1.0f, 0.75f ) );
 	auto* light = lightNode->CreateComponent< Urho3D::Light >();
 	light->SetLightType( Urho3D::LIGHT_DIRECTIONAL );
 	light->SetCastShadows( true );
 	light->SetSpecularIntensity( 1.0f );
-	light->SetColor( Urho3D::Color( 1.0f, 1.0f, 1.0f ) );
+	light->SetColor( Urho3D::Color::WHITE );
 
 	auto* skyNode = this->scene_->CreateChild( "Sky" );
 	auto* skybox = skyNode->CreateComponent< Urho3D::Skybox >();
@@ -51,14 +51,14 @@ void Level::Start( void ) {
 	this->terrainNode_->SetPosition( Urho3D::Vector3::ZERO );
 	auto* terrain = this->terrainNode_->CreateComponent< Urho3D::Terrain >();
 	terrain->SetPatchSize( 32 );
-	terrain->SetSpacing( Urho3D::Vector3( 1.0f, 0.25f, 1.0f ) );
+	terrain->SetSpacing( Urho3D::Vector3( 2.5f, 0.25f, 2.5f ) );
 	terrain->SetSmoothing( true );
 	terrain->SetHeightMap( cache->GetResource< Urho3D::Image >( "Textures/HeightMap.png" ) );
 	terrain->SetMaterial( cache->GetResource< Urho3D::Material >( "Materials/Terrain.xml" ) );
 	terrain->SetOccluder( true );
 
 	auto* rigidBody = this->terrainNode_->CreateComponent< Urho3D::RigidBody >();
-	rigidBody->SetFriction( 0.5f );
+	rigidBody->SetFriction( 0.1f );
 	rigidBody->SetCollisionLayerAndMask( LayerFlagsTerrain, LayerFlagsBalls );
 
 	auto* collisionShape = this->terrainNode_->CreateComponent< Urho3D::CollisionShape >();

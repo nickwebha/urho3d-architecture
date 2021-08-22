@@ -8,9 +8,6 @@ enum LayerFlags {
 	LayerFlagsAny							= 0xff
 };
 
-#define MILLISECONDS_NOW					std::chrono::duration_cast< std::chrono::milliseconds >( std::chrono::system_clock::now().time_since_epoch() ).count()
-#define SECONDS_NOW							std::chrono::duration_cast< std::chrono::seconds >( std::chrono::system_clock::now().time_since_epoch() ).count()
-
 #define WINDOW_TITLE						"Urho3D Architecture"
 #define WINDOW_ICON							"Textures/FishBoneLogo.png"
 #define WINDOW_FPS_MINIMUM					30
@@ -33,16 +30,7 @@ enum LayerFlags {
 	#define LOGO_TIMEOUT					5
 #endif
 
-#define WORLD_GRAVITY						-25
+#define LEVEL_GRAVITY						25
 
-#define BALLS_COUNT							10
+#define BALLS_COUNT							25
 #define BALLS_SIZE							25
-#define BALLS_SPEED							25
-
-#define PLAYER_SPEED						15
-
-#define JOYSTICK_BUTTON_FIRE				10
-#define JOYSTICK_BUTTON_FIRESTOP			10
-
-#define JOYSTICK_BUTTON_ACTIVATED			9
-#define JOYSTICK_BUTTON_ACTIVATEDSTOP		9

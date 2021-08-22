@@ -7,6 +7,8 @@
 #include "constants.hpp"
 #include "base.hpp"
 
+#define SECONDS_NOW	std::chrono::duration_cast< std::chrono::seconds >( std::chrono::system_clock::now().time_since_epoch() ).count()
+
 class Logo : public Base {
 	private:
 		Urho3D::SharedPtr< Urho3D::Sprite > sprite_;
