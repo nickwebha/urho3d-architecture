@@ -8,6 +8,8 @@
 
 class Level : public Urho3D::Component {
 	private:
+		URHO3D_OBJECT( Level, Urho3D::Component );
+
 		#ifdef __DEBUG__
 			bool drawDebug_;
 
@@ -25,9 +27,9 @@ class Level : public Urho3D::Component {
 			#endif
 		};
 
-		virtual void Start( void );
-		virtual void Stop( void );
-		virtual void Update( Urho3D::StringHash, Urho3D::VariantMap& );
+		void Start( void );
+		void Stop( void );
+		void Update( Urho3D::StringHash, Urho3D::VariantMap& );
 
 		#ifdef __DEBUG__
 			void setDebug( const bool );

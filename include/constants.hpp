@@ -4,7 +4,7 @@ enum LayerFlags {
 	LayerFlagsUndefined						= 0x0,
 	LayerFlagsTerrain						= 0x1,
 	LayerFlagsPlayer						= 0x2,
-	LayerFlagsBall							= 0x4,
+	LayerFlagsBalls							= 0x4,
 	LayerFlagsAny							= 0xff
 };
 
@@ -35,7 +35,8 @@ enum LayerFlags {
 
 #define WORLD_GRAVITY						-25
 
-#define BALLS_COUNT							25
+#define BALLS_COUNT							10
+#define BALLS_SIZE							25
 #define BALLS_SPEED							25
 
 #define PLAYER_SPEED						15

@@ -8,7 +8,6 @@
 #endif
 
 void Level::Start( void ) {
-std::cout << "Level" << std::endl;
 	this->scene_ = new Urho3D::Scene( this->GetContext() );
 
 	#ifdef __DEBUG__
@@ -59,8 +58,8 @@ std::cout << "Level" << std::endl;
 	terrain->SetOccluder( true );
 
 	auto* rigidBody = this->terrainNode_->CreateComponent< Urho3D::RigidBody >();
-	rigidBody->SetFriction( 0.1f );
-	rigidBody->SetCollisionLayerAndMask( LayerFlagsTerrain, LayerFlagsPlayer );
+	rigidBody->SetFriction( 0.5f );
+	rigidBody->SetCollisionLayerAndMask( LayerFlagsTerrain, LayerFlagsBalls );
 
 	auto* collisionShape = this->terrainNode_->CreateComponent< Urho3D::CollisionShape >();
 	collisionShape->SetTerrain();
