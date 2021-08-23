@@ -7,6 +7,7 @@
 
 #include "base.hpp"
 #include "level.hpp"
+#include "camera.hpp"
 #include "balls.hpp"
 
 #define MOVE_SPEED			100.0f

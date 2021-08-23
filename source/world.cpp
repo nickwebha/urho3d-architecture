@@ -49,6 +49,9 @@ void World::Start( void ) {
 	this->GetContext()->RegisterSubsystem< Level >();
 	this->GetSubsystem< Level >()->Start();
 
+	this->GetContext()->RegisterSubsystem< Camera >();
+	this->GetSubsystem< Camera >()->Start();
+
 	this->GetContext()->RegisterSubsystem< Balls >();
 	this->GetSubsystem< Balls >()->Start();
 
@@ -85,18 +88,16 @@ void World::Update( Urho3D::StringHash eventType, Urho3D::VariantMap& eventData 
 	this->pitch_ += MOUSE_SENSITIVITY * mouseMove.y_;
 	this->pitch_ = Urho3D::Clamp( this->pitch_, -90.0f, 90.0f );
 
-	auto* level = this->GetSubsystem< Level >();
+	auto* camera = this->GetSubsystem< Camera >();
 
-	level->rotateCamera( this->pitch_, this->yaw_ );
+	camera->rotateCamera( this->pitch_, this->yaw_ );
 
 	if ( input->GetKeyDown( Urho3D::KEY_W ) )
-		level->moveCamera( Urho3D::Vector3::FORWARD * MOVE_SPEED * timeStep );
+		camera->moveCamera( Urho3D::Vector3::FORWARD * MOVE_SPEED * timeStep );
 	if ( input->GetKeyDown( Urho3D::KEY_S ) )
-		level->moveCamera( Urho3D::Vector3::BACK * MOVE_SPEED * timeStep );
+		camera->moveCamera( Urho3D::Vector3::BACK * MOVE_SPEED * timeStep );
 	if ( input->GetKeyDown( Urho3D::KEY_A ) )
-		level->moveCamera( Urho3D::Vector3::LEFT * MOVE_SPEED * timeStep );
+		camera->moveCamera( Urho3D::Vector3::LEFT * MOVE_SPEED * timeStep );
 	if ( input->GetKeyDown( Urho3D::KEY_D ) )
-		level->moveCamera( Urho3D::Vector3::RIGHT * MOVE_SPEED * timeStep );
-
-	level->Update( eventType, eventData );
+		camera->moveCamera( Urho3D::Vector3::RIGHT * MOVE_SPEED * timeStep );
 };

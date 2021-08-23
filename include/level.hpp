@@ -17,7 +17,6 @@ class Level : public Urho3D::Component {
 		#endif
 
 		Urho3D::SharedPtr< Urho3D::Scene > scene_;
-		Urho3D::SharedPtr< Urho3D::Node > cameraNode_;
 		Urho3D::SharedPtr< Urho3D::Node > terrainNode_;
 
 	public:
@@ -29,7 +28,6 @@ class Level : public Urho3D::Component {
 
 		void Start( void );
 		void Stop( void );
-		void Update( Urho3D::StringHash, Urho3D::VariantMap& );
 
 		#ifdef __DEBUG__
 			void setDebug( const bool );
@@ -37,9 +35,5 @@ class Level : public Urho3D::Component {
 		#endif
 
 		Urho3D::SharedPtr< Urho3D::Scene > getScene( void );
-		Urho3D::SharedPtr< Urho3D::Node > getCamera( void );
 		Urho3D::SharedPtr< Urho3D::Node > getTerrain( void );
-
-		void rotateCamera( const float, const float );
-		void moveCamera( const Urho3D::Vector3& );
 };
