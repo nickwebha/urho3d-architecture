@@ -16,14 +16,14 @@
 #include <Urho3D/Urho3DAll.h>
 
 #include "constants.hpp"
-#include "base.hpp"
+#include "baseScreen.hpp"
 #include "logo.hpp"
 #include "loading.hpp"
 #include "world.hpp"
 
 class Game : public Urho3D::Application {
 	private:
-		std::unique_ptr< Base > base_;
+		std::unique_ptr< BaseScreen > baseScreen_;
 
 		#ifdef __DEBUG__
 			int framecount_;

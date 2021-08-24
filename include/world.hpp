@@ -5,15 +5,14 @@
 
 #include <Urho3D/Urho3DAll.h>
 
-#include "base.hpp"
+#include "constants.hpp"
+#include "baseScreen.hpp"
 #include "level.hpp"
 #include "camera.hpp"
+#include "player.hpp"
 #include "balls.hpp"
 
-#define MOVE_SPEED			100.0f
-#define MOUSE_SENSITIVITY	0.1f
-
-class World : public Base {
+class World : public BaseScreen {
 	private:
 		float yaw_;
 		float pitch_;
@@ -29,7 +28,7 @@ class World : public Base {
 		void HandleKeyUp( Urho3D::StringHash, Urho3D::VariantMap& );
 
 	public:
-		using Base::Base;
+		using BaseScreen::BaseScreen;
 
 		void Start( void );
 		void Stop( void );

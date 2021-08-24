@@ -8,9 +8,9 @@
 #include "level.hpp"
 
 class Camera : public Urho3D::Component {
-	private:
-		URHO3D_OBJECT( Camera, Urho3D::Component );
+	URHO3D_OBJECT( Camera, Urho3D::Component );
 
+	private:
 		Urho3D::SharedPtr< Urho3D::Node > cameraNode_;
 
 	public:

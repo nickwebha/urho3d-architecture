@@ -1,16 +1,16 @@
 #pragma once
 
 #include "constants.hpp"
-#include "base.hpp"
+#include "baseScreen.hpp"
 
-class Loading : public Base {
+class Loading : public BaseScreen {
 	private:
 		Urho3D::SharedPtr< Urho3D::Sprite > sprite_;
 
 		void preload( void );
 
 	public:
-		using Base::Base;
+		using BaseScreen::BaseScreen;
 
 		void Start( void );
 		void Stop( void );

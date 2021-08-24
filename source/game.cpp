@@ -1,18 +1,16 @@
 #include <game.hpp>
 
 void Game::SwitchScreen( Urho3D::StringHash eventType, Urho3D::VariantMap& eventData ) {
-	this->base_->Stop();
+	this->baseScreen_->Stop();
 
 	if ( eventData[ "Screen" ] == Urho3D::String( "Logo" ) )
-		this->base_ = std::make_unique< Logo >( this->context_ );
+		this->baseScreen_ = std::make_unique< Logo >( this->context_ );
 	else if ( eventData[ "Screen" ] == Urho3D::String( "Loading" ) )
-		this->base_ = std::make_unique< Loading >( this->context_ );
+		this->baseScreen_ = std::make_unique< Loading >( this->context_ );
 	else if ( eventData[ "Screen" ] == Urho3D::String( "World" ) )
-		this->base_ = std::make_unique< World >( this->context_ );
-	else
-		this->base_ = std::make_unique< Base >( this->context_ );
+		this->baseScreen_ = std::make_unique< World >( this->context_ );
 
-	this->base_->Start();
+	this->baseScreen_->Start();
 };
 
 void Game::Setup( void ) {
@@ -68,8 +66,7 @@ void Game::Start( void ) {
 		this->GetSubsystem< Urho3D::UI >()->GetRoot()->AddChild( this->text_ );
 	#endif
 
-	this->base_ = std::make_unique< Base >( this->context_ );
-	this->base_->Start();
+	this->baseScreen_ = std::make_unique< BaseScreen >( this->context_ );
 
 	Urho3D::VariantMap data;
 	data[ "Screen" ] = Urho3D::String( "Logo" );
@@ -77,7 +74,7 @@ void Game::Start( void ) {
 };
 
 void Game::Stop( void ) {
-	this->base_->Stop();
+	this->baseScreen_->Stop();
 
 	UnsubscribeFromEvent( "SwitchScreen" );
 
@@ -85,7 +82,7 @@ void Game::Stop( void ) {
 };
 
 void Game::Update( Urho3D::StringHash eventType, Urho3D::VariantMap& eventData ) {
-	this->base_->Update( eventType, eventData );
+	this->baseScreen_->Update( eventType, eventData );
 
 	#ifdef __DEBUG__
 		const float timeStep = eventData[ Urho3D::Update::P_TIMESTEP ].GetFloat();

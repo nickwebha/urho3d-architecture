@@ -1,5 +1,27 @@
 #include <balls.hpp>
 
+void Balls::HandleObjectCollisionStart( Urho3D::StringHash eventType, Urho3D::VariantMap& eventData ) {
+	auto* rigidBody1 = static_cast< Urho3D::RigidBody* >( eventData[ Urho3D::NodeCollisionStart::P_BODY ].GetPtr() );
+	auto* node1 = rigidBody1->GetNode();
+	const auto name1 = node1->GetName();
+
+	auto* rigidBody2 = static_cast< Urho3D::RigidBody* >( eventData[ Urho3D::NodeCollisionStart::P_OTHERBODY ].GetPtr() );
+	auto* node2 = rigidBody2->GetNode();
+	const auto name2 = node2->GetName();
+
+	if ( name2 == Urho3D::String( "Player" ) || name2 == Urho3D::String( "Ball" ) ) {
+		auto* cache = this->GetSubsystem< Urho3D::ResourceCache >();
+		auto* level = this->GetSubsystem< Level >();
+
+		auto* sound = cache->GetResource< Urho3D::Sound >( "Sound/Hit.ogg" );
+		auto* soundNode = level->getScene()->CreateChild();
+		auto* soundSource = soundNode->CreateComponent< Urho3D::SoundSource >();
+		soundSource->Play( sound );
+		soundSource->SetGain( 0.1f );
+		soundSource->SetAutoRemoveMode( Urho3D::REMOVE_NODE );
+	}
+};
+
 void Balls::Start( void ) {
 	auto* cache = this->GetSubsystem< Urho3D::ResourceCache >();
 	auto* level = this->GetSubsystem< Level >();
@@ -21,9 +43,11 @@ void Balls::Start( void ) {
 		auto* rigidBody = ball->CreateComponent< Urho3D::RigidBody >();
 		rigidBody->SetMass( 1.0f );
 		rigidBody->SetFriction( 0.25f );
-		rigidBody->SetCollisionLayerAndMask( LayerFlagsBalls, LayerFlagsTerrain | LayerFlagsBalls );
+		rigidBody->SetCollisionLayerAndMask( LayerFlagsBalls, LayerFlagsTerrain | LayerFlagsPlayer | LayerFlagsBalls );
 
 		auto* collisionShape = ball->CreateComponent< Urho3D::CollisionShape >();
 		collisionShape->SetSphere( 1 );
+
+		SubscribeToEvent( ball, Urho3D::E_NODECOLLISIONSTART, URHO3D_HANDLER( Balls, HandleObjectCollisionStart ) );
 	}
 };

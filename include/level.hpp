@@ -7,9 +7,9 @@
 #include "constants.hpp"
 
 class Level : public Urho3D::Component {
-	private:
-		URHO3D_OBJECT( Level, Urho3D::Component );
+	URHO3D_OBJECT( Level, Urho3D::Component );
 
+	private:
 		#ifdef __DEBUG__
 			bool drawDebug_;
 

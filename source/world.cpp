@@ -47,12 +47,13 @@ void World::Start( void ) {
 	this->pitch_ = 90;
 
 	this->GetContext()->RegisterSubsystem< Level >();
-	this->GetSubsystem< Level >()->Start();
-
 	this->GetContext()->RegisterSubsystem< Camera >();
-	this->GetSubsystem< Camera >()->Start();
-
+	this->GetContext()->RegisterSubsystem< Player >();
 	this->GetContext()->RegisterSubsystem< Balls >();
+
+	this->GetSubsystem< Level >()->Start();
+	this->GetSubsystem< Camera >()->Start();
+	this->GetSubsystem< Player >()->Start();
 	this->GetSubsystem< Balls >()->Start();
 
 	SubscribeToEvent( Urho3D::E_KEYDOWN, URHO3D_HANDLER( World, HandleKeyDown ) );
@@ -92,12 +93,12 @@ void World::Update( Urho3D::StringHash eventType, Urho3D::VariantMap& eventData 
 
 	camera->rotateCamera( this->pitch_, this->yaw_ );
 
-	if ( input->GetKeyDown( Urho3D::KEY_W ) )
+	if ( input->GetKeyDown( Urho3D::KEY_UP ) )
 		camera->moveCamera( Urho3D::Vector3::FORWARD * MOVE_SPEED * timeStep );
-	if ( input->GetKeyDown( Urho3D::KEY_S ) )
+	if ( input->GetKeyDown( Urho3D::KEY_DOWN ) )
 		camera->moveCamera( Urho3D::Vector3::BACK * MOVE_SPEED * timeStep );
-	if ( input->GetKeyDown( Urho3D::KEY_A ) )
+	if ( input->GetKeyDown( Urho3D::KEY_LEFT ) )
 		camera->moveCamera( Urho3D::Vector3::LEFT * MOVE_SPEED * timeStep );
-	if ( input->GetKeyDown( Urho3D::KEY_D ) )
+	if ( input->GetKeyDown( Urho3D::KEY_RIGHT ) )
 		camera->moveCamera( Urho3D::Vector3::RIGHT * MOVE_SPEED * timeStep );
 };

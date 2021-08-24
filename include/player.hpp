@@ -5,16 +5,16 @@
 #include "constants.hpp"
 #include "level.hpp"
 
-class Balls : public Urho3D::Component {
-	URHO3D_OBJECT( Balls, Urho3D::Component );
+class Player : public Urho3D::Component {
+	URHO3D_OBJECT( Player, Urho3D::Component );
 
 	private:
-		Urho3D::SharedPtr< Urho3D::Node > balls_[ BALLS_COUNT ];
+		Urho3D::SharedPtr< Urho3D::Node > player_;
 
 		void HandleObjectCollisionStart( Urho3D::StringHash eventType, Urho3D::VariantMap& eventData );
 
 	public:
-		explicit Balls( Urho3D::Context* context ) : Urho3D::Component( context ) {};
+		explicit Player( Urho3D::Context* context ) : Urho3D::Component( context ) {};
 
 		void Start( void );
 };

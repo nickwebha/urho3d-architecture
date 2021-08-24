@@ -54,7 +54,7 @@ void Level::Start( void ) {
 
 	auto* rigidBody = this->terrainNode_->CreateComponent< Urho3D::RigidBody >();
 	rigidBody->SetFriction( 0.1f );
-	rigidBody->SetCollisionLayerAndMask( LayerFlagsTerrain, LayerFlagsBalls );
+	rigidBody->SetCollisionLayerAndMask( LayerFlagsTerrain, LayerFlagsPlayer | LayerFlagsBalls );
 
 	auto* collisionShape = this->terrainNode_->CreateComponent< Urho3D::CollisionShape >();
 	collisionShape->SetTerrain();

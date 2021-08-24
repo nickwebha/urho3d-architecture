@@ -2,7 +2,7 @@
 
 void Camera::Start( void ) {
 	this->cameraNode_ = new Urho3D::Node( this->GetContext() );
-	this->cameraNode_->SetTransform( Urho3D::Vector3( 0.0f, 250.0f, 0.0f ), Urho3D::Quaternion( 90.0f, 0.0f, 0.0f ) );
+	this->cameraNode_->SetTransform( Urho3D::Vector3( 0.0f, 500.0f, 0.0f ), Urho3D::Quaternion( 90.0f, 0.0f, 0.0f ) );
 	auto* camera = this->cameraNode_->CreateComponent< Urho3D::Camera >();
 	camera->SetFarClip( 1000.0f );
 
