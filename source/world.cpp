@@ -51,6 +51,8 @@ void World::Start( void ) {
 	this->GetContext()->RegisterSubsystem< Player >();
 	this->GetContext()->RegisterSubsystem< Balls >();
 
+	this->GetContext()->RegisterFactory< PlayerComponent >();
+
 	this->GetSubsystem< Level >()->Start();
 	this->GetSubsystem< Camera >()->Start();
 	this->GetSubsystem< Player >()->Start();
@@ -101,4 +103,15 @@ void World::Update( Urho3D::StringHash eventType, Urho3D::VariantMap& eventData 
 		camera->moveCamera( Urho3D::Vector3::LEFT * MOVE_SPEED * timeStep );
 	if ( input->GetKeyDown( Urho3D::KEY_RIGHT ) )
 		camera->moveCamera( Urho3D::Vector3::RIGHT * MOVE_SPEED * timeStep );
+
+	auto* playerComponent = this->GetSubsystem< Player >()->GetComponent< PlayerComponent >();
+
+	if ( input->GetKeyDown( Urho3D::KEY_W ) )
+		playerComponent->MoveX( 1 );
+	if ( input->GetKeyDown( Urho3D::KEY_S ) )
+		playerComponent->MoveX( -1 );
+	if ( input->GetKeyDown( Urho3D::KEY_A ) )
+		playerComponent->MoveZ( 1 );
+	if ( input->GetKeyDown( Urho3D::KEY_D ) )
+		playerComponent->MoveZ( -1 );
 };

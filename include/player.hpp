@@ -4,6 +4,7 @@
 
 #include "constants.hpp"
 #include "level.hpp"
+#include "playerComponent.hpp"
 
 class Player : public Urho3D::Component {
 	URHO3D_OBJECT( Player, Urho3D::Component );

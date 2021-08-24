@@ -10,6 +10,7 @@
 #include "level.hpp"
 #include "camera.hpp"
 #include "player.hpp"
+#include "playerComponent.hpp"
 #include "balls.hpp"
 
 class World : public BaseScreen {

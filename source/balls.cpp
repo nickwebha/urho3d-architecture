@@ -31,7 +31,7 @@ void Balls::Start( void ) {
 		const auto& ball = this->balls_[ i ];
 
 		Urho3D::Vector3 position( Urho3D::Random( -100, 100 + 1 ), 0.0f, Urho3D::Random( -100, 100 + 1 ) );
-		position.y_ = level->getTerrain()->GetComponent< Urho3D::Terrain >()->GetHeight( position ) + 10.0f;
+		position.y_ = level->getTerrain()->GetComponent< Urho3D::Terrain >()->GetHeight( position ) + BALLS_SIZE;
 		ball->SetPosition( position );
 		ball->SetScale( Urho3D::Vector3( BALLS_SIZE, BALLS_SIZE, BALLS_SIZE ) );
 

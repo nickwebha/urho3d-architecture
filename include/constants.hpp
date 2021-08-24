@@ -36,6 +36,8 @@ enum LayerFlags {
 #define LEVEL_GRAVITY				25
 
 #define PLAYER_SIZE					20
+#define PLAYER_SPEED				10
+#define PLAYER_HEALTH_MAXIMUM		100
 
 #define BALLS_COUNT					5
 #define BALLS_SIZE					25

@@ -19,6 +19,7 @@ void Player::HandleObjectCollisionStart( Urho3D::StringHash eventType, Urho3D::V
 		particleEmitter->SetEffect( cache->GetResource< Urho3D::ParticleEffect >( "Particle/Dust.xml" ) );
 		particleEmitter->SetNumParticles( 1 );
 		particleEmitter->SetEmitting( true );
+		particleEmitter->SetAutoRemoveMode( Urho3D::REMOVE_NODE );
 	}
 };
 
@@ -29,7 +30,7 @@ void Player::Start( void ) {
 	this->player_ = level->getScene()->CreateChild( "Player" );
 
 	Urho3D::Vector3 position( 0.0f, 0.0f, -200.0f );
-	position.y_ = level->getTerrain()->GetComponent< Urho3D::Terrain >()->GetHeight( position ) + 10.0f;
+	position.y_ = level->getTerrain()->GetComponent< Urho3D::Terrain >()->GetHeight( position ) + PLAYER_SIZE;
 	this->player_->SetPosition( position );
 	this->player_->SetScale( Urho3D::Vector3( PLAYER_SIZE, PLAYER_SIZE, PLAYER_SIZE ) );
 
@@ -47,6 +48,8 @@ void Player::Start( void ) {
 
 	auto* collisionShape = this->player_->CreateComponent< Urho3D::CollisionShape >();
 	collisionShape->SetCylinder( 1, 1 );
+
+	this->player_->CreateComponent< PlayerComponent >();
 
 	SubscribeToEvent( this->player_, Urho3D::E_NODECOLLISIONSTART, URHO3D_HANDLER( Player, HandleObjectCollisionStart ) );
 };
