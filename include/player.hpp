@@ -18,4 +18,6 @@ class Player : public Urho3D::Object {
 		explicit Player( Urho3D::Context* context ) : Urho3D::Object( context ) {};
 
 		void Start( void );
+
+		Urho3D::Node* GetPlayer( void );
 };

@@ -46,7 +46,7 @@ void Level::Start( void ) {
 	this->terrainNode_->SetPosition( Urho3D::Vector3::ZERO );
 	auto* terrain = this->terrainNode_->CreateComponent< Urho3D::Terrain >();
 	terrain->SetPatchSize( 32 );
-	terrain->SetSpacing( Urho3D::Vector3( 2.5f, 0.25f, 2.5f ) );
+	terrain->SetSpacing( Urho3D::Vector3( 2.5f, 0.5f, 2.5f ) );
 	terrain->SetSmoothing( true );
 	terrain->SetHeightMap( cache->GetResource< Urho3D::Image >( "Textures/HeightMap.png" ) );
 	terrain->SetMaterial( cache->GetResource< Urho3D::Material >( "Materials/Terrain.xml" ) );

@@ -36,21 +36,24 @@ void Player::Start( void ) {
 	this->player_->SetRotation( Urho3D::Quaternion( 0, 0, 90 ) );
 
 	auto* object = this->player_->CreateComponent< Urho3D::StaticModel >();
-	object->SetModel( cache->GetResource< Urho3D::Model >( "Models/Cylinder.mdl" ) );
+	object->SetModel( cache->GetResource< Urho3D::Model >( "Models/Sphere.mdl" ) );
 	object->SetMaterial( cache->GetResource< Urho3D::Material >( "Materials/Stone.xml" ) );
 	object->SetCastShadows( true );
 
 	auto* rigidBody = this->player_->CreateComponent< Urho3D::RigidBody >();
-	rigidBody->SetMass( 1.0f );
-	rigidBody->SetFriction( 0.5f );
+	rigidBody->SetMass( 5.0f );
+	rigidBody->SetFriction( 1.0f );
 	rigidBody->SetLinearDamping( 0.25f );
-	rigidBody->SetAngularDamping( 0.5f );
 	rigidBody->SetCollisionLayerAndMask( LayerFlagsPlayer, LayerFlagsTerrain | LayerFlagsBalls );
 
 	auto* collisionShape = this->player_->CreateComponent< Urho3D::CollisionShape >();
-	collisionShape->SetCylinder( 1, 1 );
+	collisionShape->SetSphere( 1 );
 
 	this->player_->CreateComponent< PlayerComponent >();
 
 	this->SubscribeToEvent( this->player_, Urho3D::E_NODECOLLISIONSTART, URHO3D_HANDLER( Player, HandleObjectCollisionStart ) );
+};
+
+Urho3D::Node* Player::GetPlayer( void ) {
+	return this->player_;
 };

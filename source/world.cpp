@@ -58,6 +58,8 @@ void World::Start( void ) {
 	this->GetSubsystem< Player >()->Start();
 	this->GetSubsystem< Balls >()->Start();
 
+	this->player_ = this->GetSubsystem< Player >()->GetPlayer();
+
 	this->SubscribeToEvent( Urho3D::E_KEYDOWN, URHO3D_HANDLER( World, HandleKeyDown ) );
 	this->SubscribeToEvent( Urho3D::E_KEYUP, URHO3D_HANDLER( World, HandleKeyUp ) );
 	this->SubscribeToEvent( Urho3D::E_JOYSTICKCONNECTED, URHO3D_HANDLER( World, GamePadConnected ) );
@@ -104,14 +106,14 @@ void World::Update( Urho3D::StringHash eventType, Urho3D::VariantMap& eventData 
 	if ( input->GetKeyDown( Urho3D::KEY_RIGHT ) )
 		camera->moveCamera( Urho3D::Vector3::RIGHT * MOVE_SPEED * timeStep );
 
-	// auto* playerComponent = this->GetSubsystem< Player >()->GetComponent< PlayerComponent >();
+	auto* playerComponent = this->player_->GetComponent< PlayerComponent >();
 
-	// if ( input->GetKeyDown( Urho3D::KEY_W ) )
-	// 	playerComponent->MoveX( 1 );
-	// if ( input->GetKeyDown( Urho3D::KEY_S ) )
-	// 	playerComponent->MoveX( -1 );
-	// if ( input->GetKeyDown( Urho3D::KEY_A ) )
-	// 	playerComponent->MoveZ( 1 );
-	// if ( input->GetKeyDown( Urho3D::KEY_D ) )
-	// 	playerComponent->MoveZ( -1 );
+	if ( input->GetKeyDown( Urho3D::KEY_W ) )
+		playerComponent->MoveZ( 1 );
+	if ( input->GetKeyDown( Urho3D::KEY_S ) )
+		playerComponent->MoveZ( -1 );
+	if ( input->GetKeyDown( Urho3D::KEY_A ) )
+		playerComponent->MoveX( -1 );
+	if ( input->GetKeyDown( Urho3D::KEY_D ) )
+		playerComponent->MoveX( 1 );
 };
