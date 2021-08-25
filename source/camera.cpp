@@ -2,14 +2,14 @@
 
 void Camera::Start( void ) {
 	this->cameraNode_ = new Urho3D::Node( this->GetContext() );
-	this->cameraNode_->SetTransform( Urho3D::Vector3( 0.0f, 500.0f, 0.0f ), Urho3D::Quaternion( 90.0f, 0.0f, 0.0f ) );
+	this->cameraNode_->SetPosition( Urho3D::Vector3( 0.0f, 500.0f, -150.0f ) );
 	auto* camera = this->cameraNode_->CreateComponent< Urho3D::Camera >();
 	camera->SetFarClip( 1000.0f );
 
 	auto* level = this->GetSubsystem< Level >();
 
 	auto* renderer = this->GetSubsystem< Urho3D::Renderer >();
-	Urho3D::SharedPtr< Urho3D::Viewport > viewport( new Urho3D::Viewport( this->GetContext(), level->getScene(), this->cameraNode_->GetComponent< Urho3D::Camera >() ) );
+	Urho3D::SharedPtr< Urho3D::Viewport > viewport( new Urho3D::Viewport( this->GetContext(), level->getScene(), camera ) );
 	renderer->SetViewport( 0, viewport );
 };
 

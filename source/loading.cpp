@@ -1,23 +1,21 @@
 #include <loading.hpp>
 
 void Loading::HandleLoadingEnd( Urho3D::StringHash eventType, Urho3D::VariantMap& eventData ) {
-	if ( eventData[ Urho3D::ResourceBackgroundLoaded::P_SUCCESS ].GetBool() )
-		this->loadedCount_--;
-	else
+	if ( ! eventData[ Urho3D::ResourceBackgroundLoaded::P_SUCCESS ].GetBool() )
 		Urho3D::ErrorExit();
 
-	if ( this->loadedCount_ == 0 )
+	if ( this->GetSubsystem< Urho3D::ResourceCache >()->GetNumBackgroundLoadResources() == 1 )
 		this->loaded_ = true;
 };
 
 template < class T >
-void Loading::preloadFile( const std::string path ) {
-	this->loadedCount_++;
-
-	this->GetSubsystem< Urho3D::ResourceCache >()->BackgroundLoadResource< T >( path.c_str() );
+void Loading::preloadFile( const Urho3D::String path ) {
+	this->GetSubsystem< Urho3D::ResourceCache >()->BackgroundLoadResource< T >( path );
 };
 
 void Loading::preload( void ) {
+	this->preloadFile< Urho3D::Sound >( "Sounds/Hit.ogg" );
+
 	this->preloadFile< Urho3D::Image >( "Textures/HeightMap.png" );
 	this->preloadFile< Urho3D::Image >( "Textures/StoneDiffuse.dds" );
 	this->preloadFile< Urho3D::Image >( "Textures/StoneNormal.dds" );
@@ -25,13 +23,10 @@ void Loading::preload( void ) {
 	this->preloadFile< Urho3D::Image >( "Textures/TerrainDetail2.png" );
 	this->preloadFile< Urho3D::Image >( "Textures/TerrainDetail3.png" );
 	this->preloadFile< Urho3D::Image >( "Textures/TerrainWeights.png" );
-
-	this->preloadFile< Urho3D::Sound >( "Sounds/Hit.ogg" );
 };
 
 void Loading::Start( void ) {
 	this->loaded_ = false;
-	this->loadedCount_ = 0;
 
 	auto* cache = this->GetSubsystem< Urho3D::ResourceCache >();
 

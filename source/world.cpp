@@ -47,7 +47,7 @@ void World::GamePadHatMove( Urho3D::StringHash eventType, Urho3D::VariantMap& ev
 
 void World::Start( void ) {
 	this->yaw_ = 0;
-	this->pitch_ = 90;
+	this->pitch_ = 75;
 
 	this->GetContext()->RegisterSubsystem< Level >();
 	this->GetContext()->RegisterSubsystem< Camera >();
