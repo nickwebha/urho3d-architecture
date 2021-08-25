@@ -6,8 +6,8 @@
 
 #include "constants.hpp"
 
-class Level : public Urho3D::Component {
-	URHO3D_OBJECT( Level, Urho3D::Component );
+class Level : public Urho3D::Object {
+	URHO3D_OBJECT( Level, Urho3D::Object );
 
 	private:
 		#ifdef __DEBUG__
@@ -20,7 +20,7 @@ class Level : public Urho3D::Component {
 		Urho3D::SharedPtr< Urho3D::Node > terrainNode_;
 
 	public:
-		explicit Level( Urho3D::Context* context ) : Urho3D::Component( context ) {
+		explicit Level( Urho3D::Context* context ) : Urho3D::Object( context ) {
 			#ifdef __DEBUG__
 				this->drawDebug_ = false;
 			#endif

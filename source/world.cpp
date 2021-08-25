@@ -58,25 +58,25 @@ void World::Start( void ) {
 	this->GetSubsystem< Player >()->Start();
 	this->GetSubsystem< Balls >()->Start();
 
-	SubscribeToEvent( Urho3D::E_KEYDOWN, URHO3D_HANDLER( World, HandleKeyDown ) );
-	SubscribeToEvent( Urho3D::E_KEYUP, URHO3D_HANDLER( World, HandleKeyUp ) );
-	SubscribeToEvent( Urho3D::E_JOYSTICKCONNECTED, URHO3D_HANDLER( World, GamePadConnected ) );
-	SubscribeToEvent( Urho3D::E_JOYSTICKDISCONNECTED, URHO3D_HANDLER( World, GamePadDisconnected ) );
-	SubscribeToEvent( Urho3D::E_JOYSTICKBUTTONDOWN, URHO3D_HANDLER( World, GamePadButtonDown ) );
-	SubscribeToEvent( Urho3D::E_JOYSTICKBUTTONUP, URHO3D_HANDLER( World, GamePadButtonUp ) );
-	SubscribeToEvent( Urho3D::E_JOYSTICKAXISMOVE, URHO3D_HANDLER( World, GamePadAxisMove ) );
-	SubscribeToEvent( Urho3D::E_JOYSTICKHATMOVE, URHO3D_HANDLER( World, GamePadHatMove ) );
+	this->SubscribeToEvent( Urho3D::E_KEYDOWN, URHO3D_HANDLER( World, HandleKeyDown ) );
+	this->SubscribeToEvent( Urho3D::E_KEYUP, URHO3D_HANDLER( World, HandleKeyUp ) );
+	this->SubscribeToEvent( Urho3D::E_JOYSTICKCONNECTED, URHO3D_HANDLER( World, GamePadConnected ) );
+	this->SubscribeToEvent( Urho3D::E_JOYSTICKDISCONNECTED, URHO3D_HANDLER( World, GamePadDisconnected ) );
+	this->SubscribeToEvent( Urho3D::E_JOYSTICKBUTTONDOWN, URHO3D_HANDLER( World, GamePadButtonDown ) );
+	this->SubscribeToEvent( Urho3D::E_JOYSTICKBUTTONUP, URHO3D_HANDLER( World, GamePadButtonUp ) );
+	this->SubscribeToEvent( Urho3D::E_JOYSTICKAXISMOVE, URHO3D_HANDLER( World, GamePadAxisMove ) );
+	this->SubscribeToEvent( Urho3D::E_JOYSTICKHATMOVE, URHO3D_HANDLER( World, GamePadHatMove ) );
 };
 
 void World::Stop( void ) {
-	UnsubscribeFromEvent( Urho3D::E_JOYSTICKHATMOVE );
-	UnsubscribeFromEvent( Urho3D::E_JOYSTICKAXISMOVE );
-	UnsubscribeFromEvent( Urho3D::E_JOYSTICKBUTTONUP );
-	UnsubscribeFromEvent( Urho3D::E_JOYSTICKBUTTONDOWN );
-	UnsubscribeFromEvent( Urho3D::E_JOYSTICKDISCONNECTED );
-	UnsubscribeFromEvent( Urho3D::E_JOYSTICKCONNECTED );
-	UnsubscribeFromEvent( Urho3D::E_KEYUP );
-	UnsubscribeFromEvent( Urho3D::E_KEYDOWN );
+	this->UnsubscribeFromEvent( Urho3D::E_JOYSTICKHATMOVE );
+	this->UnsubscribeFromEvent( Urho3D::E_JOYSTICKAXISMOVE );
+	this->UnsubscribeFromEvent( Urho3D::E_JOYSTICKBUTTONUP );
+	this->UnsubscribeFromEvent( Urho3D::E_JOYSTICKBUTTONDOWN );
+	this->UnsubscribeFromEvent( Urho3D::E_JOYSTICKDISCONNECTED );
+	this->UnsubscribeFromEvent( Urho3D::E_JOYSTICKCONNECTED );
+	this->UnsubscribeFromEvent( Urho3D::E_KEYUP );
+	this->UnsubscribeFromEvent( Urho3D::E_KEYDOWN );
 
 	this->GetSubsystem< Level >()->Stop();
 };

@@ -51,5 +51,5 @@ void Player::Start( void ) {
 
 	this->player_->CreateComponent< PlayerComponent >();
 
-	SubscribeToEvent( this->player_, Urho3D::E_NODECOLLISIONSTART, URHO3D_HANDLER( Player, HandleObjectCollisionStart ) );
+	this->SubscribeToEvent( this->player_, Urho3D::E_NODECOLLISIONSTART, URHO3D_HANDLER( Player, HandleObjectCollisionStart ) );
 };

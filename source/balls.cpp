@@ -48,6 +48,6 @@ void Balls::Start( void ) {
 		auto* collisionShape = ball->CreateComponent< Urho3D::CollisionShape >();
 		collisionShape->SetSphere( 1 );
 
-		SubscribeToEvent( ball, Urho3D::E_NODECOLLISIONSTART, URHO3D_HANDLER( Balls, HandleObjectCollisionStart ) );
+		this->SubscribeToEvent( ball, Urho3D::E_NODECOLLISIONSTART, URHO3D_HANDLER( Balls, HandleObjectCollisionStart ) );
 	}
 };

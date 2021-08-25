@@ -60,13 +60,13 @@ void Level::Start( void ) {
 	collisionShape->SetTerrain();
 
 	#ifdef __DEBUG__
-		SubscribeToEvent( Urho3D::E_POSTRENDERUPDATE, URHO3D_HANDLER( Level, HandlePostRenderUpdate ) );
+		this->SubscribeToEvent( Urho3D::E_POSTRENDERUPDATE, URHO3D_HANDLER( Level, HandlePostRenderUpdate ) );
 	#endif
 };
 
 void Level::Stop( void ) {
 	#ifdef __DEBUG__
-		UnsubscribeFromEvent( Urho3D::E_POSTRENDERUPDATE );
+		this->UnsubscribeFromEvent( Urho3D::E_POSTRENDERUPDATE );
 	#endif
 };
 
