@@ -7,7 +7,10 @@ void Logo::Start( void ) {
 
 	auto* ui = this->GetSubsystem< Urho3D::UI >();
 	this->sprite_ = ui->GetRoot()->CreateChild< Urho3D::Sprite >();
-	auto* texture = cache->GetResource< Urho3D::Texture2D >( "Textures/FishBoneLogo.png" );	// TODO This should be a temporary resource.
+	Urho3D::SharedPtr< Urho3D::Texture2D > texture = cache->GetTempResource< Urho3D::Texture2D >( "Textures/FishBoneLogo.png" );
+	if ( texture == NULL )
+		Urho3D::ErrorExit();
+
 	this->sprite_->SetTexture( texture );
 
 	const short int textureWidth = texture->GetWidth();

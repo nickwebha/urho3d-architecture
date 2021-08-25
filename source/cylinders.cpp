@@ -13,7 +13,7 @@ void Cylinders::HandleObjectCollisionStart( Urho3D::StringHash eventType, Urho3D
 		auto* cache = this->GetSubsystem< Urho3D::ResourceCache >();
 		auto* level = this->GetSubsystem< Level >();
 
-		auto* sound = cache->GetResource< Urho3D::Sound >( "Sound/Hit.ogg" );
+		auto* sound = cache->GetResource< Urho3D::Sound >( "Sounds/Hit.ogg" );
 		auto* soundNode = level->getScene()->CreateChild();
 		auto* soundSource = soundNode->CreateComponent< Urho3D::SoundSource >();
 		soundSource->Play( sound );
