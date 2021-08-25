@@ -11,7 +11,7 @@
 #include "camera.hpp"
 #include "player.hpp"
 #include "playerComponent.hpp"
-#include "balls.hpp"
+#include "cylinders.hpp"
 
 class World : public BaseScreen {
 	private:

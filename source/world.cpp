@@ -8,8 +8,11 @@ void World::HandleKeyDown( Urho3D::StringHash eventType, Urho3D::VariantMap& eve
 		if ( key == Urho3D::KEY_ESCAPE )
 			this->GetSubsystem< Urho3D::Engine >()->Exit();
 		#ifdef __DEBUG__
-			else if ( key == Urho3D::KEY_SPACE )
-				this->GetSubsystem< Level >()->setDebug( ! this->GetSubsystem< Level >()->getDebug() );
+			else if ( key == Urho3D::KEY_SPACE ) {
+				auto* level = this->GetSubsystem< Level >();
+
+				level->setDebug( ! level->getDebug() );
+			}
 		#endif
 	}
 };
@@ -49,14 +52,14 @@ void World::Start( void ) {
 	this->GetContext()->RegisterSubsystem< Level >();
 	this->GetContext()->RegisterSubsystem< Camera >();
 	this->GetContext()->RegisterSubsystem< Player >();
-	this->GetContext()->RegisterSubsystem< Balls >();
+	this->GetContext()->RegisterSubsystem< Cylinders >();
 
 	this->GetContext()->RegisterFactory< PlayerComponent >();
 
 	this->GetSubsystem< Level >()->Start();
 	this->GetSubsystem< Camera >()->Start();
 	this->GetSubsystem< Player >()->Start();
-	this->GetSubsystem< Balls >()->Start();
+	this->GetSubsystem< Cylinders >()->Start();
 
 	this->player_ = this->GetSubsystem< Player >()->GetPlayer();
 

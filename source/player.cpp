@@ -33,7 +33,6 @@ void Player::Start( void ) {
 	position.y_ = level->getTerrain()->GetComponent< Urho3D::Terrain >()->GetHeight( position ) + PLAYER_SIZE;
 	this->player_->SetPosition( position );
 	this->player_->SetScale( Urho3D::Vector3( PLAYER_SIZE, PLAYER_SIZE, PLAYER_SIZE ) );
-	this->player_->SetRotation( Urho3D::Quaternion( 0, 0, 90 ) );
 
 	auto* object = this->player_->CreateComponent< Urho3D::StaticModel >();
 	object->SetModel( cache->GetResource< Urho3D::Model >( "Models/Sphere.mdl" ) );
@@ -44,7 +43,7 @@ void Player::Start( void ) {
 	rigidBody->SetMass( 5.0f );
 	rigidBody->SetFriction( 1.0f );
 	rigidBody->SetLinearDamping( 0.25f );
-	rigidBody->SetCollisionLayerAndMask( LayerFlagsPlayer, LayerFlagsTerrain | LayerFlagsBalls );
+	rigidBody->SetCollisionLayerAndMask( LayerFlagsPlayer, LayerFlagsTerrain | LayerFlagsCylinders );
 
 	auto* collisionShape = this->player_->CreateComponent< Urho3D::CollisionShape >();
 	collisionShape->SetSphere( 1 );
