@@ -29,10 +29,11 @@ void Player::Start( void ) {
 
 	this->player_ = level->getScene()->CreateChild( "Player" );
 
-	Urho3D::Vector3 position( 0.0f, 0.0f, -200.0f );
+	Urho3D::Vector3 position( 0.0f, 0.0f, -150.0f );
 	position.y_ = level->getTerrain()->GetComponent< Urho3D::Terrain >()->GetHeight( position ) + PLAYER_SIZE;
 	this->player_->SetPosition( position );
 	this->player_->SetScale( Urho3D::Vector3( PLAYER_SIZE, PLAYER_SIZE, PLAYER_SIZE ) );
+	this->player_->SetRotation( Urho3D::Quaternion( 0, 0, 90 ) );
 
 	auto* object = this->player_->CreateComponent< Urho3D::StaticModel >();
 	object->SetModel( cache->GetResource< Urho3D::Model >( "Models/Cylinder.mdl" ) );

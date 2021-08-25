@@ -6,7 +6,7 @@
 #include "level.hpp"
 #include "playerComponent.hpp"
 
-class Player : public Urho3D::Component {
+class Player : public Urho3D::Object {
 	URHO3D_OBJECT( Player, Urho3D::Component );
 
 	private:
@@ -15,7 +15,7 @@ class Player : public Urho3D::Component {
 		void HandleObjectCollisionStart( Urho3D::StringHash eventType, Urho3D::VariantMap& eventData );
 
 	public:
-		explicit Player( Urho3D::Context* context ) : Urho3D::Component( context ) {};
+		explicit Player( Urho3D::Context* context ) : Urho3D::Object( context ) {};
 
 		void Start( void );
 };

@@ -5,7 +5,7 @@
 #include "constants.hpp"
 #include "level.hpp"
 
-class Balls : public Urho3D::Component {
+class Balls : public Urho3D::Object {
 	URHO3D_OBJECT( Balls, Urho3D::Component );
 
 	private:
@@ -14,7 +14,7 @@ class Balls : public Urho3D::Component {
 		void HandleObjectCollisionStart( Urho3D::StringHash eventType, Urho3D::VariantMap& eventData );
 
 	public:
-		explicit Balls( Urho3D::Context* context ) : Urho3D::Component( context ) {};
+		explicit Balls( Urho3D::Context* context ) : Urho3D::Object( context ) {};
 
 		void Start( void );
 };

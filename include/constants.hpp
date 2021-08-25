@@ -14,7 +14,7 @@ enum LayerFlags {
 #define WINDOW_FPS_INACTIVE			30
 
 #ifdef __DEBUG__
-	#define ASSETS_PATHS			"coreData/;data/"
+	#define ASSETS_PATHS			"CoreData/;Data/"
 
 	#define SCREEN_WIDTH			1280
 	#define SCREEN_HEIGHT			720
@@ -22,7 +22,7 @@ enum LayerFlags {
 	#define LOGO_TIMEOUT			1
 #elif __RELEASE__
 	#define ASSETS_PATHS			""
-	#define ASSETS_PATHS_PACKAGES	std::vector< std::string >{ "coreData.pak", "data.pak" }
+	#define ASSETS_PATHS_PACKAGES	std::vector< std::string >{ "CoreData.pak", "Data.pak" }
 
 	#define SCREEN_WIDTH			1920
 	#define SCREEN_HEIGHT			1080
@@ -37,7 +37,6 @@ enum LayerFlags {
 
 #define PLAYER_SIZE					20
 #define PLAYER_SPEED				10
-#define PLAYER_HEALTH_MAXIMUM		100
 
 #define BALLS_COUNT					5
 #define BALLS_SIZE					25
