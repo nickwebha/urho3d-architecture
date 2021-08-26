@@ -6,7 +6,7 @@
 #include "level.hpp"
 
 class Cylinders : public Urho3D::Object {
-	URHO3D_OBJECT( Cylinders, Urho3D::Component );
+	URHO3D_OBJECT( Cylinders, Urho3D::Object );
 
 	private:
 		Urho3D::SharedPtr< Urho3D::Node > cylinders_[ CYLINDERS_COUNT ];

@@ -7,7 +7,7 @@
 #include "playerComponent.hpp"
 
 class Player : public Urho3D::Object {
-	URHO3D_OBJECT( Player, Urho3D::Component );
+	URHO3D_OBJECT( Player, Urho3D::Object );
 
 	private:
 		Urho3D::SharedPtr< Urho3D::Node > player_;
