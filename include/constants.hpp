@@ -1,11 +1,11 @@
 #pragma once
 
-enum LayerFlags {
-	LayerFlagsUndefined				= 0x0,
-	LayerFlagsTerrain				= 0x1,
-	LayerFlagsPlayer				= 0x2,
-	LayerFlagsCylinders				= 0x4,
-	LayerFlagsAny					= 0xff
+enum LayerFlags: unsigned char {
+	LayerFlagsUndefined				= 1 << 0,
+	LayerFlagsTerrain				= 1 << 1,
+	LayerFlagsPlayer				= 1 << 2,
+	LayerFlagsCylinders				= 1 << 3,
+	LayerFlagsAny					= 1 << 7
 };
 
 #define WINDOW_TITLE				"Urho3D Architecture"
