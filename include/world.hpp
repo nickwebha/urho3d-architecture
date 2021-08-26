@@ -10,7 +10,7 @@
 #include "level.hpp"
 #include "camera.hpp"
 #include "player.hpp"
-#include "playerComponent.hpp"
+#include "objectMovement.hpp"
 #include "cylinders.hpp"
 
 class World : public BaseScreen {

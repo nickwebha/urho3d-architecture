@@ -48,7 +48,7 @@ void Player::Start( void ) {
 	auto* collisionShape = this->player_->CreateComponent< Urho3D::CollisionShape >();
 	collisionShape->SetSphere( 1 );
 
-	this->player_->CreateComponent< PlayerComponent >();
+	this->player_->CreateComponent< ObjectMovement >();
 
 	this->SubscribeToEvent( this->player_, Urho3D::E_NODECOLLISIONSTART, URHO3D_HANDLER( Player, HandleObjectCollisionStart ) );
 };

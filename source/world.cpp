@@ -54,7 +54,7 @@ void World::Start( void ) {
 	this->GetContext()->RegisterSubsystem< Player >();
 	this->GetContext()->RegisterSubsystem< Cylinders >();
 
-	this->GetContext()->RegisterFactory< PlayerComponent >();
+	this->GetContext()->RegisterFactory< ObjectMovement >();
 
 	this->GetSubsystem< Level >()->Start();
 	this->GetSubsystem< Camera >()->Start();
@@ -109,7 +109,7 @@ void World::Update( Urho3D::StringHash eventType, Urho3D::VariantMap& eventData 
 	if ( input->GetKeyDown( Urho3D::KEY_RIGHT ) )
 		camera->moveCamera( Urho3D::Vector3::RIGHT * MOVE_SPEED * timeStep );
 
-	auto* playerComponent = this->player_->GetComponent< PlayerComponent >();
+	auto* playerComponent = this->player_->GetComponent< ObjectMovement >();
 
 	if ( input->GetKeyDown( Urho3D::KEY_W ) )
 		playerComponent->MoveZ( 1 );

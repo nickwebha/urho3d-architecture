@@ -35,8 +35,9 @@ enum LayerFlags {
 
 #define LEVEL_GRAVITY				25
 
+#define OBJECT_SPEED				2
+
 #define PLAYER_SIZE					50
-#define PLAYER_SPEED				2
 
 #define CYLINDERS_COUNT				25
 #define CYLINDERS_SIZE				25
