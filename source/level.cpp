@@ -19,7 +19,7 @@ void Level::Start( void ) {
 	auto* cache = this->GetSubsystem< Urho3D::ResourceCache >();
 
 	auto* physicsWorld = this->scene_->CreateComponent< Urho3D::PhysicsWorld >();
-	physicsWorld->SetGravity( Urho3D::Vector3( 0, -LEVEL_GRAVITY, 0 ) );
+	physicsWorld->SetGravity( Urho3D::Vector3::DOWN * LEVEL_GRAVITY );
 
 	auto* zoneNode = this->scene_->CreateChild( "Zone" );
 	auto* zone = zoneNode->CreateComponent< Urho3D::Zone >();
