@@ -1,6 +1,6 @@
-#include <camera.hpp>
+#include <worldCamera.hpp>
 
-void Camera::Start( void ) {
+void WorldCamera::Start( void ) {
 	this->cameraNode_ = new Urho3D::Node( this->GetContext() );
 	this->cameraNode_->SetPosition( Urho3D::Vector3( 0.0f, 500.0f, -150.0f ) );
 	auto* camera = this->cameraNode_->CreateComponent< Urho3D::Camera >();
@@ -13,14 +13,14 @@ void Camera::Start( void ) {
 	renderer->SetViewport( 0, viewport );
 };
 
-Urho3D::SharedPtr< Urho3D::Node > Camera::getCamera( void ) {
+Urho3D::SharedPtr< Urho3D::Node > WorldCamera::getCamera( void ) {
 	return this->cameraNode_;
 };
 
-void Camera::rotateCamera( const float pitch, const float yaw ) {
+void WorldCamera::rotateCamera( const float pitch, const float yaw ) {
 	this->cameraNode_->SetRotation( Urho3D::Quaternion( pitch, yaw, 0.0f ) );
 };
 
-void Camera::moveCamera( const Urho3D::Vector3& vector3 ) {
+void WorldCamera::moveCamera( const Urho3D::Vector3& vector3 ) {
 	this->cameraNode_->Translate( vector3 );
 };

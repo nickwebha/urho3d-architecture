@@ -8,7 +8,7 @@
 #include "constants.hpp"
 #include "baseScreen.hpp"
 #include "level.hpp"
-#include "camera.hpp"
+#include "worldCamera.hpp"
 #include "player.hpp"
 #include "objectMovement.hpp"
 #include "cylinders.hpp"

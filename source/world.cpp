@@ -50,14 +50,14 @@ void World::Start( void ) {
 	this->pitch_ = 75;
 
 	this->GetContext()->RegisterSubsystem< Level >();
-	this->GetContext()->RegisterSubsystem< Camera >();
+	this->GetContext()->RegisterSubsystem< WorldCamera >();
 	this->GetContext()->RegisterSubsystem< Player >();
 	this->GetContext()->RegisterSubsystem< Cylinders >();
 
 	this->GetContext()->RegisterFactory< ObjectMovement >();
 
 	this->GetSubsystem< Level >()->Start();
-	this->GetSubsystem< Camera >()->Start();
+	this->GetSubsystem< WorldCamera >()->Start();
 	this->GetSubsystem< Player >()->Start();
 	this->GetSubsystem< Cylinders >()->Start();
 
@@ -96,7 +96,7 @@ void World::Update( Urho3D::StringHash eventType, Urho3D::VariantMap& eventData 
 	this->pitch_ += MOUSE_SENSITIVITY * mouseMove.y_;
 	this->pitch_ = Urho3D::Clamp( this->pitch_, -90.0f, 90.0f );
 
-	auto* camera = this->GetSubsystem< Camera >();
+	auto* camera = this->GetSubsystem< WorldCamera >();
 
 	camera->rotateCamera( this->pitch_, this->yaw_ );
 
