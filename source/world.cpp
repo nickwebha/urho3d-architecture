@@ -3,18 +3,18 @@
 void World::HandleKeyDown( Urho3D::StringHash eventType, Urho3D::VariantMap& eventData ) {
 	std::cout << "Key Down: " << eventData[ Urho3D::KeyDown::P_KEY ].GetInt() << std::endl;
 
-	if ( Urho3D::GetPlatform() != Urho3D::String( "Web" ) ) {
-		const auto key = eventData[ Urho3D::KeyDown::P_KEY ].GetInt();
-		if ( key == Urho3D::KEY_ESCAPE )
-			this->GetSubsystem< Urho3D::Engine >()->Exit();
-		#ifdef __DEBUG__
-			else if ( key == Urho3D::KEY_SPACE ) {
-				auto* level = this->GetSubsystem< Level >();
+	const auto key = eventData[ Urho3D::KeyDown::P_KEY ].GetInt();
+	if ( key == Urho3D::KEY_ESCAPE && Urho3D::GetPlatform() != Urho3D::String( "Web" ) )
+		this->GetSubsystem< Urho3D::Engine >()->Exit();
+	else if ( key == Urho3D::KEY_C )
+		this->cameraFollowPlayer_ = ! this->cameraFollowPlayer_;
+	#ifdef __DEBUG__
+		else if ( key == Urho3D::KEY_SPACE ) {
+			auto* level = this->GetSubsystem< Level >();
 
-				level->setDebug( ! level->getDebug() );
-			}
-		#endif
-	}
+			level->setDebug( ! level->getDebug() );
+		}
+	#endif
 };
 
 void World::HandleKeyUp( Urho3D::StringHash eventType, Urho3D::VariantMap& eventData ) {
@@ -48,6 +48,8 @@ void World::GamePadHatMove( Urho3D::StringHash eventType, Urho3D::VariantMap& ev
 void World::Start( void ) {
 	this->yaw_ = 0;
 	this->pitch_ = 75;
+
+	this->cameraFollowPlayer_ = false;
 
 	this->GetContext()->RegisterSubsystem< Level >();
 	this->GetContext()->RegisterSubsystem< WorldCamera >();
@@ -87,27 +89,39 @@ void World::Stop( void ) {
 };
 
 void World::Update( Urho3D::StringHash eventType, Urho3D::VariantMap& eventData ) {
-	const float timeStep = eventData[ Urho3D::Update::P_TIMESTEP ].GetFloat();
-
 	const auto* input = this->GetSubsystem< Urho3D::Input >();
-
-	const auto mouseMove = input->GetMouseMove();
-	this->yaw_ += MOUSE_SENSITIVITY * mouseMove.x_;
-	this->pitch_ += MOUSE_SENSITIVITY * mouseMove.y_;
-	this->pitch_ = Urho3D::Clamp( this->pitch_, -90.0f, 90.0f );
-
 	auto* camera = this->GetSubsystem< WorldCamera >();
 
-	camera->rotateCamera( this->pitch_, this->yaw_ );
+	if ( this->cameraFollowPlayer_ ) {
+		auto worldPosition = this->player_->GetWorldPosition();
+
+		this->yaw_ = camera->getYaw();
+		this->pitch_ = camera->getPitch();
+
+		Urho3D::VariantMap data;
+		data[ "position" ] = worldPosition;
+		camera->Update( eventType, data );
+	}
+	else {
+		const auto mouseMove = input->GetMouseMove();
+
+		this->yaw_ += MOUSE_SENSITIVITY * mouseMove.x_;
+		this->pitch_ += MOUSE_SENSITIVITY * mouseMove.y_;
+		this->pitch_ = Urho3D::Clamp( this->pitch_, -90.0f, 90.0f );
+
+		camera->rotate( this->pitch_, this->yaw_ );
+	}
+
+	const float timeStep = eventData[ Urho3D::Update::P_TIMESTEP ].GetFloat();
 
 	if ( input->GetKeyDown( Urho3D::KEY_UP ) )
-		camera->moveCamera( Urho3D::Vector3::FORWARD * MOVE_SPEED * timeStep );
+		camera->move( Urho3D::Vector3::FORWARD * MOVE_SPEED * timeStep );
 	if ( input->GetKeyDown( Urho3D::KEY_DOWN ) )
-		camera->moveCamera( Urho3D::Vector3::BACK * MOVE_SPEED * timeStep );
+		camera->move( Urho3D::Vector3::BACK * MOVE_SPEED * timeStep );
 	if ( input->GetKeyDown( Urho3D::KEY_LEFT ) )
-		camera->moveCamera( Urho3D::Vector3::LEFT * MOVE_SPEED * timeStep );
+		camera->move( Urho3D::Vector3::LEFT * MOVE_SPEED * timeStep );
 	if ( input->GetKeyDown( Urho3D::KEY_RIGHT ) )
-		camera->moveCamera( Urho3D::Vector3::RIGHT * MOVE_SPEED * timeStep );
+		camera->move( Urho3D::Vector3::RIGHT * MOVE_SPEED * timeStep );
 
 	auto* playerComponent = this->player_->GetComponent< ObjectMovement >();
 

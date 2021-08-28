@@ -17,9 +17,13 @@ class WorldCamera : public Urho3D::Object {
 		explicit WorldCamera( Urho3D::Context* context ) : Urho3D::Object( context ) {};
 
 		void Start( void );
+		void Update( Urho3D::StringHash, Urho3D::VariantMap& );
 
 		Urho3D::SharedPtr< Urho3D::Node > getCamera( void );
 
-		void rotateCamera( const float, const float );
-		void moveCamera( const Urho3D::Vector3& );
+		void rotate( const float, const float );
+		void move( const Urho3D::Vector3& );
+
+		float getYaw( void );
+		float getPitch( void );
 };

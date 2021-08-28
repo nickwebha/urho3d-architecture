@@ -13,14 +13,26 @@ void WorldCamera::Start( void ) {
 	renderer->SetViewport( 0, viewport );
 };
 
+void WorldCamera::Update( Urho3D::StringHash eventType, Urho3D::VariantMap& eventData ) {
+	this->cameraNode_->LookAt( eventData[ "position" ].GetVector3() );
+};
+
 Urho3D::SharedPtr< Urho3D::Node > WorldCamera::getCamera( void ) {
 	return this->cameraNode_;
 };
 
-void WorldCamera::rotateCamera( const float pitch, const float yaw ) {
+void WorldCamera::rotate( const float pitch, const float yaw ) {
 	this->cameraNode_->SetRotation( Urho3D::Quaternion( pitch, yaw, 0.0f ) );
 };
 
-void WorldCamera::moveCamera( const Urho3D::Vector3& vector3 ) {
+void WorldCamera::move( const Urho3D::Vector3& vector3 ) {
 	this->cameraNode_->Translate( vector3 );
+};
+
+float WorldCamera::getYaw( void ) {
+	return this->cameraNode_->GetRotation().YawAngle();
+};
+
+float WorldCamera::getPitch( void ) {
+	return this->cameraNode_->GetRotation().PitchAngle();
 };

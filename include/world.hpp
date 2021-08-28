@@ -18,6 +18,8 @@ class World : public BaseScreen {
 		float yaw_;
 		float pitch_;
 
+		bool cameraFollowPlayer_;
+
 		Urho3D::SharedPtr< Urho3D::Node > player_;
 
 		void GamePadConnected( Urho3D::StringHash, Urho3D::VariantMap& );
