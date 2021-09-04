@@ -3,6 +3,7 @@
 #include <memory>
 #include <string>
 #include <sstream>
+#include <chrono>
 
 #ifdef __RELEASE__
 	#include <vector>
