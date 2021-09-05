@@ -7,6 +7,28 @@
 	};
 #endif
 
+void Level::DrawLogo( void ) {
+	auto* cache = GetSubsystem< Urho3D::ResourceCache >();
+	auto* logoTexture = cache->GetResource< Urho3D::Texture2D >( "Textures/FishBoneLogo.png" );
+	if ( ! logoTexture )
+		return;
+
+	auto* ui = GetSubsystem< Urho3D::UI >();
+	auto logoSprite = ui->GetRoot()->CreateChild< Urho3D::Sprite >();
+
+	logoSprite->SetTexture( logoTexture );
+
+	int textureWidth = logoTexture->GetWidth();
+	int textureHeight = logoTexture->GetHeight();
+
+	logoSprite->SetScale( 256.0f / textureWidth );
+	logoSprite->SetSize( textureWidth, textureHeight );
+	logoSprite->SetHotSpot( textureWidth, textureHeight );
+	logoSprite->SetAlignment( Urho3D::HA_RIGHT, Urho3D::VA_BOTTOM );
+	logoSprite->SetOpacity( 0.9f );
+	logoSprite->SetPriority( -100 );
+};
+
 void Level::Start( void ) {
 	this->scene_ = new Urho3D::Scene( this->GetContext() );
 
@@ -58,6 +80,8 @@ void Level::Start( void ) {
 
 	auto* collisionShape = this->terrainNode_->CreateComponent< Urho3D::CollisionShape >();
 	collisionShape->SetTerrain();
+
+	this->DrawLogo();
 
 	#ifdef __DEBUG__
 		this->SubscribeToEvent( Urho3D::E_POSTRENDERUPDATE, URHO3D_HANDLER( Level, HandlePostRenderUpdate ) );

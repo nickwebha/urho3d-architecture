@@ -16,6 +16,7 @@ void Loading::preloadFile( const Urho3D::String path ) {
 void Loading::preload( void ) {
 	this->preloadFile< Urho3D::Sound >( "Sounds/Hit.ogg" );
 
+	this->preloadFile< Urho3D::Texture2D >( "Textures/FishBoneLogo.png" );
 	this->preloadFile< Urho3D::Image >( "Textures/HeightMap.png" );
 	this->preloadFile< Urho3D::Image >( "Textures/StoneDiffuse.dds" );
 	this->preloadFile< Urho3D::Image >( "Textures/StoneNormal.dds" );

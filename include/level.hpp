@@ -19,6 +19,8 @@ class Level : public Urho3D::Object {
 		Urho3D::SharedPtr< Urho3D::Scene > scene_;
 		Urho3D::SharedPtr< Urho3D::Node > terrainNode_;
 
+		void DrawLogo( void );
+
 	public:
 		explicit Level( Urho3D::Context* context ) : Urho3D::Object( context ) {
 			#ifdef __DEBUG__
