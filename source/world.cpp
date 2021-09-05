@@ -89,17 +89,15 @@ void World::Stop( void ) {
 };
 
 void World::Update( Urho3D::StringHash eventType, Urho3D::VariantMap& eventData ) {
-	const auto* input = this->GetSubsystem< Urho3D::Input >();
-	auto* camera = this->GetSubsystem< WorldCamera >();
+	static const auto* input = this->GetSubsystem< Urho3D::Input >();
+	static auto* camera = this->GetSubsystem< WorldCamera >();
 
 	if ( this->cameraFollowPlayer_ ) {
-		auto worldPosition = this->player_->GetWorldPosition();
-
 		this->yaw_ = camera->getYaw();
 		this->pitch_ = camera->getPitch();
 
 		Urho3D::VariantMap data;
-		data[ "position" ] = worldPosition;
+		data[ "position" ] = this->player_->GetWorldPosition();
 		camera->Update( eventType, data );
 	}
 	else {
@@ -124,7 +122,6 @@ void World::Update( Urho3D::StringHash eventType, Urho3D::VariantMap& eventData 
 		camera->move( Urho3D::Vector3::RIGHT * MOVE_SPEED * timeStep );
 
 	auto* playerComponent = this->player_->GetComponent< ObjectMovement >();
-
 	if ( input->GetKeyDown( Urho3D::KEY_W ) )
 		playerComponent->MoveZ( 1 );
 	if ( input->GetKeyDown( Urho3D::KEY_S ) )

@@ -25,8 +25,8 @@ void WorldCamera::rotate( const float pitch, const float yaw ) {
 	this->cameraNode_->SetRotation( Urho3D::Quaternion( pitch, yaw, 0.0f ) );
 };
 
-void WorldCamera::move( const Urho3D::Vector3& vector3 ) {
-	this->cameraNode_->Translate( vector3 );
+void WorldCamera::move( const Urho3D::Vector3& vector ) {
+	this->cameraNode_->Translate( vector );
 };
 
 float WorldCamera::getYaw( void ) {
