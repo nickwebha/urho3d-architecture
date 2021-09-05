@@ -4,8 +4,12 @@ void World::HandleKeyDown( Urho3D::StringHash eventType, Urho3D::VariantMap& eve
 	std::cout << "Key Down: " << eventData[ Urho3D::KeyDown::P_KEY ].GetInt() << std::endl;
 
 	const auto key = eventData[ Urho3D::KeyDown::P_KEY ].GetInt();
-	if ( key == Urho3D::KEY_ESCAPE && Urho3D::GetPlatform() != Urho3D::String( "Web" ) )
-		this->GetSubsystem< Urho3D::Engine >()->Exit();
+	if ( key == Urho3D::KEY_ESCAPE ) {
+		if ( Urho3D::GetPlatform() != Urho3D::String( "Web" ) ) {
+			auto* worldUI = this->GetSubsystem< WorldUI >();
+			worldUI->SetMenuOpen( ! worldUI->GetMenuOpen() );
+		}
+	}
 	else if ( key == Urho3D::KEY_C )
 		this->cameraFollowPlayer_ = ! this->cameraFollowPlayer_;
 	#ifdef __DEBUG__
@@ -53,6 +57,7 @@ void World::Start( void ) {
 
 	this->GetContext()->RegisterSubsystem< Level >();
 	this->GetContext()->RegisterSubsystem< WorldCamera >();
+	this->GetContext()->RegisterSubsystem< WorldUI >();
 	this->GetContext()->RegisterSubsystem< Player >();
 	this->GetContext()->RegisterSubsystem< Cylinders >();
 
@@ -60,6 +65,7 @@ void World::Start( void ) {
 
 	this->GetSubsystem< Level >()->Start();
 	this->GetSubsystem< WorldCamera >()->Start();
+	this->GetSubsystem< WorldUI >()->Start();
 	this->GetSubsystem< Player >()->Start();
 	this->GetSubsystem< Cylinders >()->Start();
 
@@ -100,7 +106,7 @@ void World::Update( Urho3D::StringHash eventType, Urho3D::VariantMap& eventData 
 		data[ "position" ] = this->player_->GetWorldPosition();
 		camera->Update( eventType, data );
 	}
-	else {
+	else if ( ! this->GetSubsystem< WorldUI >()->GetMenuOpen() ) {
 		const auto mouseMove = input->GetMouseMove();
 
 		this->yaw_ += MOUSE_SENSITIVITY * mouseMove.x_;

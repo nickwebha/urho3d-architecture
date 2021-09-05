@@ -9,6 +9,7 @@
 #include "baseScreen.hpp"
 #include "level.hpp"
 #include "worldCamera.hpp"
+#include "worldUI.hpp"
 #include "player.hpp"
 #include "objectMovement.hpp"
 #include "cylinders.hpp"

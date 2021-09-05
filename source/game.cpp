@@ -4,11 +4,11 @@ void Game::SwitchScreen( Urho3D::StringHash eventType, Urho3D::VariantMap& event
 	this->baseScreen_->Stop();
 
 	if ( eventData[ "Screen" ] == Urho3D::String( "Logo" ) )
-		this->baseScreen_ = std::make_unique< Logo >( this->context_ );
+		this->baseScreen_ = std::make_unique< Logo >( this->GetContext() );
 	else if ( eventData[ "Screen" ] == Urho3D::String( "Loading" ) )
-		this->baseScreen_ = std::make_unique< Loading >( this->context_ );
+		this->baseScreen_ = std::make_unique< Loading >( this->GetContext() );
 	else if ( eventData[ "Screen" ] == Urho3D::String( "World" ) )
-		this->baseScreen_ = std::make_unique< World >( this->context_ );
+		this->baseScreen_ = std::make_unique< World >( this->GetContext() );
 
 	this->baseScreen_->Start();
 };
