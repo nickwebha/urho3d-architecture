@@ -6,18 +6,18 @@
 #include "level.hpp"
 #include "objectMovement.hpp"
 
-class Player : public Urho3D::Object {
-	URHO3D_OBJECT( Player, Urho3D::Object );
+class Controllable : public Urho3D::Object {
+	URHO3D_OBJECT( Controllable, Urho3D::Object );
 
 	private:
-		Urho3D::SharedPtr< Urho3D::Node > player_;
+		Urho3D::SharedPtr< Urho3D::Node > controllable_;
 
 		void HandleObjectCollisionStart( Urho3D::StringHash eventType, Urho3D::VariantMap& eventData );
 
 	public:
-		explicit Player( Urho3D::Context* context ) : Urho3D::Object( context ) {};
+		explicit Controllable( Urho3D::Context* context ) : Urho3D::Object( context ) {};
 
 		void Start( void );
 
-		Urho3D::Node* GetPlayer( void );
+		Urho3D::Node* GetControllable( void );
 };

@@ -1,6 +1,6 @@
-#include <player.hpp>
+#include <controllable.hpp>
 
-void Player::HandleObjectCollisionStart( Urho3D::StringHash eventType, Urho3D::VariantMap& eventData ) {
+void Controllable::HandleObjectCollisionStart( Urho3D::StringHash eventType, Urho3D::VariantMap& eventData ) {
 	auto* rigidBody1 = static_cast< Urho3D::RigidBody* >( eventData[ Urho3D::NodeCollisionStart::P_BODY ].GetPtr() );
 	auto* node1 = rigidBody1->GetNode();
 	const auto name1 = node1->GetName();
@@ -9,7 +9,7 @@ void Player::HandleObjectCollisionStart( Urho3D::StringHash eventType, Urho3D::V
 	auto* node2 = rigidBody2->GetNode();
 	const auto name2 = node2->GetName();
 
-	if ( name2 == Urho3D::String( "Ball" ) ) {
+	if ( name2 == Urho3D::String( "Cylinder" ) ) {
 		auto* cache = this->GetSubsystem< Urho3D::ResourceCache >();
 
 		auto* emitter = node1->CreateChild();
@@ -23,36 +23,36 @@ void Player::HandleObjectCollisionStart( Urho3D::StringHash eventType, Urho3D::V
 	}
 };
 
-void Player::Start( void ) {
+void Controllable::Start( void ) {
 	auto* cache = this->GetSubsystem< Urho3D::ResourceCache >();
 	auto* level = this->GetSubsystem< Level >();
 
-	this->player_ = level->getScene()->CreateChild( "Player" );
+	this->controllable_ = level->getScene()->CreateChild( "Controllable" );
 
 	Urho3D::Vector3 position( 0.0f, 0.0f, -150.0f );
-	position.y_ = level->getTerrain()->GetComponent< Urho3D::Terrain >()->GetHeight( position ) + PLAYER_SIZE;
-	this->player_->SetPosition( position );
-	this->player_->SetScale( Urho3D::Vector3( PLAYER_SIZE, PLAYER_SIZE, PLAYER_SIZE ) );
+	position.y_ = level->getTerrain()->GetComponent< Urho3D::Terrain >()->GetHeight( position ) + CONTROLLABLE_SIZE / 2;
+	this->controllable_->SetPosition( position );
+	this->controllable_->SetScale( Urho3D::Vector3( CONTROLLABLE_SIZE, CONTROLLABLE_SIZE, CONTROLLABLE_SIZE ) );
 
-	auto* object = this->player_->CreateComponent< Urho3D::StaticModel >();
+	auto* object = this->controllable_->CreateComponent< Urho3D::StaticModel >();
 	object->SetModel( cache->GetResource< Urho3D::Model >( "Models/Sphere.mdl" ) );
 	object->SetMaterial( cache->GetResource< Urho3D::Material >( "Materials/Stone.xml" ) );
 	object->SetCastShadows( true );
 
-	auto* rigidBody = this->player_->CreateComponent< Urho3D::RigidBody >();
+	auto* rigidBody = this->controllable_->CreateComponent< Urho3D::RigidBody >();
 	rigidBody->SetMass( 5.0f );
 	rigidBody->SetFriction( 1.0f );
 	rigidBody->SetLinearDamping( 0.25f );
-	rigidBody->SetCollisionLayerAndMask( LayerFlagsPlayer, LayerFlagsTerrain | LayerFlagsCylinders );
+	rigidBody->SetCollisionLayerAndMask( LayerFlagsControllable, LayerFlagsTerrain | LayerFlagsCylinders );
 
-	auto* collisionShape = this->player_->CreateComponent< Urho3D::CollisionShape >();
+	auto* collisionShape = this->controllable_->CreateComponent< Urho3D::CollisionShape >();
 	collisionShape->SetSphere( 1 );
 
-	this->player_->CreateComponent< ObjectMovement >();
+	this->controllable_->CreateComponent< ObjectMovement >();
 
-	this->SubscribeToEvent( this->player_, Urho3D::E_NODECOLLISIONSTART, URHO3D_HANDLER( Player, HandleObjectCollisionStart ) );
+	this->SubscribeToEvent( this->controllable_, Urho3D::E_NODECOLLISIONSTART, URHO3D_HANDLER( Controllable, HandleObjectCollisionStart ) );
 };
 
-Urho3D::Node* Player::GetPlayer( void ) {
-	return this->player_;
+Urho3D::Node* Controllable::GetControllable( void ) {
+	return this->controllable_;
 };

@@ -3,13 +3,14 @@
 enum LayerFlags: unsigned char {
 	LayerFlagsUndefined				= 1 << 0,
 	LayerFlagsTerrain				= 1 << 1,
-	LayerFlagsPlayer				= 1 << 2,
+	LayerFlagsControllable			= 1 << 2,
 	LayerFlagsCylinders				= 1 << 3,
 	LayerFlagsAny					= 1 << 7
 };
 
 #define WINDOW_TITLE				"Urho3D Architecture"
 #define WINDOW_ICON					"Textures/FishBoneLogo.png"
+#define WINDOW_FPS_MAXIMUM			60
 #define WINDOW_FPS_MINIMUM			30
 #define WINDOW_FPS_INACTIVE			30
 
@@ -37,7 +38,8 @@ enum LayerFlags: unsigned char {
 
 #define OBJECT_SPEED				2
 
-#define PLAYER_SIZE					50
+#define CONTROLLABLE_SIZE			50
+#define CONTROLLABLE_RANGE			50
 
 #define CYLINDERS_COUNT				25
 #define CYLINDERS_SIZE				25

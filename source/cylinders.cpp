@@ -9,7 +9,7 @@ void Cylinders::HandleObjectCollisionStart( Urho3D::StringHash eventType, Urho3D
 	auto* node2 = rigidBody2->GetNode();
 	const auto name2 = node2->GetName();
 
-	if ( name2 == Urho3D::String( "Player" ) || name2 == Urho3D::String( "Cylinders" ) ) {
+	if ( name2 == Urho3D::String( "Controllable" ) || name2 == Urho3D::String( "Cylinders" ) ) {
 		auto* cache = this->GetSubsystem< Urho3D::ResourceCache >();
 		auto* level = this->GetSubsystem< Level >();
 
@@ -27,7 +27,7 @@ void Cylinders::Start( void ) {
 	auto* level = this->GetSubsystem< Level >();
 
 	for ( short int i = 0 ; i < CYLINDERS_COUNT ; i++ ) {
-		this->cylinders_[ i ] = level->getScene()->CreateChild( "Ball" );
+		this->cylinders_[ i ] = level->getScene()->CreateChild( "Cylinder" );
 		const auto& ball = this->cylinders_[ i ];
 
 		Urho3D::Vector3 position( Urho3D::Random( -100, 100 + 1 ), 0.0f, Urho3D::Random( -100, 100 + 1 ) );
@@ -45,7 +45,7 @@ void Cylinders::Start( void ) {
 		rigidBody->SetMass( 1.0f );
 		rigidBody->SetFriction( 0.25f );
 		rigidBody->SetAngularDamping( 0.5f );
-		rigidBody->SetCollisionLayerAndMask( LayerFlagsCylinders, LayerFlagsTerrain | LayerFlagsPlayer | LayerFlagsCylinders );
+		rigidBody->SetCollisionLayerAndMask( LayerFlagsCylinders, LayerFlagsTerrain | LayerFlagsControllable | LayerFlagsCylinders );
 
 		auto* collisionShape = ball->CreateComponent< Urho3D::CollisionShape >();
 		collisionShape->SetCylinder( 1, 1 );

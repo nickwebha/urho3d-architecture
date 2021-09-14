@@ -47,7 +47,7 @@ void Game::Setup( void ) {
 void Game::Start( void ) {
 	this->GetSubsystem< Urho3D::Graphics >()->SetWindowTitle( WINDOW_TITLE );
 	this->GetSubsystem< Urho3D::Engine >()->SetMinFps( WINDOW_FPS_MINIMUM );
-	this->GetSubsystem< Urho3D::Engine >()->SetMaxFps( this->GetSubsystem< Urho3D::Graphics >()->GetRefreshRate() );
+	this->GetSubsystem< Urho3D::Engine >()->SetMaxFps( Urho3D::GetPlatform() == Urho3D::String( "Web" ) ? WINDOW_FPS_MAXIMUM : this->GetSubsystem< Urho3D::Graphics >()->GetRefreshRate() );
 	this->GetSubsystem< Urho3D::Engine >()->SetMaxInactiveFps( WINDOW_FPS_INACTIVE );
 
 	SubscribeToEvent( Urho3D::E_UPDATE, URHO3D_HANDLER( Game, Update ) );

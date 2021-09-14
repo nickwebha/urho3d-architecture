@@ -10,7 +10,7 @@
 #include "level.hpp"
 #include "worldCamera.hpp"
 #include "worldUI.hpp"
-#include "player.hpp"
+#include "controllable.hpp"
 #include "objectMovement.hpp"
 #include "cylinders.hpp"
 
@@ -19,9 +19,9 @@ class World : public BaseScreen {
 		float yaw_;
 		float pitch_;
 
-		bool cameraFollowPlayer_;
+		bool cameraFollowControllable_;
 
-		Urho3D::SharedPtr< Urho3D::Node > player_;
+		Urho3D::SharedPtr< Urho3D::Node > controllable_;
 
 		void GamePadConnected( Urho3D::StringHash, Urho3D::VariantMap& );
 		void GamePadDisconnected( Urho3D::StringHash, Urho3D::VariantMap& );
